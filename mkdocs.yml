@@ -1,0 +1,4 @@
+site_name: OpenShift Examples
+site_url: https://ocp-examples.github.io
+theme:
+  name: material
