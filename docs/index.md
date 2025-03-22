@@ -1,17 +1,39 @@
-# Welcome to MkDocs
+# OpenShift Install
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+## DNS
 
-## Commands
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
 
-## Project layout
+## Install CLIs
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+``` bash 
+mkdir -p ~/bin
+mkdir -p /tmp/ocp
+curl -o /tmp/ocp/openshift-client-linux.tar.gz https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-client-linux.tar.gz
+tar -xvf /tmp/ocp/openshift-client-linux.tar.gz -C ~/bin
+
+curl -o /tmp/ocp/openshift-install-linux.tar.gz https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-install-linux.tar.gz
+tar -xvf /tmp/ocp/openshift-install-linux.tar.gz -C ~/bin
+
+sudo dnf install /usr/bin/nmstatectl -y
+```
+
+## Cluster Install Command Reference
+
+### Create ISO
+``` bash 
+rm -rf install
+mkdir install
+cp agent-config.yaml install-config.yaml install
+openshift-install agent create image --dir=install --log-level=debug
+```
+
+### Wait for Bootstrap
+``` bash
+openshift-install agent wait-for bootstrap-complete --dir=install --log-level=debug
+```
+
+### Wait for Install to Complete
+``` bash
+openshift-install agent wait-for install-complete --dir=install --log-level=debug
+```
