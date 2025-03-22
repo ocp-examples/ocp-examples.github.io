@@ -2,3 +2,8 @@ site_name: OpenShift Examples
 site_url: https://ocp-examples.github.io
 theme:
   name: material
+  palette:
+    primary: red
+  features:
+    - content.code.copy
+    - content.code.select

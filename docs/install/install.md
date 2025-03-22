@@ -1,6 +1,6 @@
 # Install Examples
 
-```
+``` yaml
 apiVersion: v1
 baseDomain: ocp.example.com
 metadata:
